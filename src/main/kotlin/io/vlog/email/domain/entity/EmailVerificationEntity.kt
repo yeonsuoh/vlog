@@ -1,5 +1,6 @@
 package io.vlog.email.domain.entity
 
+import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
@@ -16,23 +17,24 @@ class EmailVerificationEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = 0
+    var id: Long = 0
 
-    var email: String? = null
+    @Column(nullable = false)
+    var email: String = ""
 
+    @Column(nullable = false)
+    var code: String = ""
 
-    var code: String? = null
-
+    @Column(nullable = false)
     var expiredAt: LocalDateTime? = null
 
     @CreatedDate
-    var createdAt: LocalDateTime? = LocalDateTime.now()
+    @Column(nullable = false)
+    var createdAt: LocalDateTime = LocalDateTime.now()
 
     @LastModifiedDate
-    var updatedAt: LocalDateTime? = LocalDateTime.now()
+    @Column(nullable = false)
+    var updatedAt: LocalDateTime = LocalDateTime.now()
 
     var deletedAt: LocalDateTime? = null
-
-    var checkCnt: Byte? = 0
-
 }

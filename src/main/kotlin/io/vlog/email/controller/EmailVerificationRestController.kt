@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/email-verification")
-class EmailRestController(
+class EmailVerificationRestController(
     private val emailVerificationService: EmailVerificationService,
 ) {
     @PostMapping

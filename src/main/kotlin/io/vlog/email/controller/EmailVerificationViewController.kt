@@ -1,12 +1,15 @@
 package io.vlog.email.controller
 
+import io.vlog.email.service.EmailVerificationService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
 
 @Controller
-class EmailViewController {
+class EmailVerificationViewController(
+    private val emailVerificationService: EmailVerificationService,
+) {
 
     @GetMapping("/register")
     fun registerView(
@@ -14,8 +17,10 @@ class EmailViewController {
         model: Model,
     ): String {
         // code로 email 조회
-        val email =
+        val email = emailVerificationService.getEmailByCode(code)
 
+        model.addAttribute("email", email)
+        model.addAttribute("code", code)
 
         return "register"
     }

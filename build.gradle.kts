@@ -33,9 +33,17 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 
 	// querydsl
-	implementation("com.querydsl:querydsl-jpa")
-	implementation("com.querydsl:querydsl-apt")
-	kapt("com.querydsl:querydsl-apt")
+	implementation("com.querydsl:querydsl-jpa:5.1.0:jakarta")
+	implementation("com.querydsl:querydsl-apt:5.1.0:jakarta")
+	implementation("jakarta.persistence:jakarta.persistence-api")
+	implementation("jakarta.annotation:jakarta.annotation-api")
+	kapt("com.querydsl:querydsl-apt:5.1.0:jakarta")
+	kapt("org.springframework.boot:spring-boot-configuration-processor")
+
+	// jwt
+	implementation("io.jsonwebtoken:jjwt-api:0.12.3")
+	implementation("io.jsonwebtoken:jjwt-impl:0.12.3")
+	implementation("io.jsonwebtoken:jjwt-jackson:0.12.3")
 
 	runtimeOnly("com.mysql:mysql-connector-j")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
