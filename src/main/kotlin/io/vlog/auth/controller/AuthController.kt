@@ -17,10 +17,8 @@ class AuthController(
     fun emailLogin(
         @RequestParam code: String,
     ) : String {
-        // todo userId uuid 넣기
         val accessToken = authService.emailLogin(code)
 
         return accessToken
-
     }
 }

@@ -1,18 +1,21 @@
-package io.vlog.auth.provider
+package io.vlog.auth.service
 
+import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
 import io.vlog.auth.config.JwtProperties
 import io.vlog.auth.domain.constant.JwtConstant
+import io.vlog.user.repository.UserJpaRepository
 import org.springframework.stereotype.Service
 import java.util.Date
 
 
 @Service
-class JwtTokenProvider(
+class JwtTokenService(
     private val jwtProperties: JwtProperties,
-) {
-    fun createToken(uuid: String): String {
+    private val userJpaRepository: UserJpaRepository,
+    ) : TokenService{
+    override fun createToken(uuid: String): String {
         return Jwts.builder()
             .header()
             .add(JwtConstant.TYPE, JwtConstant.JWT)
@@ -26,6 +29,28 @@ class JwtTokenProvider(
             .and()
             .signWith(secretKey)
             .compact()
+    }
+
+    override fun isValid(token: String): Boolean {
+        return getAllClaims(token)
+            .expiration.after(Date())
+    }
+
+    override fun extractUserId(token: String): Long {
+        val uuid = getAllClaims(token).get(JwtConstant.USER_ID).toString()
+        val user = userJpaRepository.findByUuid(uuid)
+            ?: throw IllegalArgumentException("user not found")
+        return user.id
+    }
+
+    private fun getAllClaims(token: String): Claims {
+        val parser = Jwts.parser()
+            .verifyWith(secretKey)
+            .build()
+
+        return parser
+            .parseSignedClaims(token)
+            .payload
     }
 
     private val secretKey = Keys.hmacShaKeyFor(

@@ -4,4 +4,5 @@ import io.vlog.user.domain.UserEntity
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface UserJpaRepository: JpaRepository<UserEntity, Long> {
+    fun findByUuid(uuid: String): UserEntity?
 }

@@ -1,4 +1,4 @@
-package io.vlog.email.controller
+package io.vlog.user.controller
 
 import io.vlog.email.service.EmailVerificationService
 import org.springframework.stereotype.Controller
@@ -7,10 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
 
 @Controller
-class EmailVerificationViewController(
+class UserViewController(
     private val emailVerificationService: EmailVerificationService,
-) {
-
+    ) {
     @GetMapping("/register")
     fun registerView(
         @RequestParam code: String,
@@ -24,4 +23,5 @@ class EmailVerificationViewController(
 
         return "register"
     }
+
 }

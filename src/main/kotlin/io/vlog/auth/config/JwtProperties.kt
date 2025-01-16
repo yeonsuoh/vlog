@@ -4,7 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.context.annotation.Configuration
 
 @Configuration
-@ConfigurationProperties(prefix = "spring.jwt")
+@ConfigurationProperties(prefix = "vlog.jwt")
 class JwtProperties {
     var secret: String? = null
     var accessExpiration: Long? = 0

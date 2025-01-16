@@ -27,13 +27,13 @@ class EmailVerificationServiceImpl(
         // 이미 가입된 회원이면 로그인 링크가 포함된 이메일 발송
         val user = userRepository.getByEmail(email)
 
-            if (user != null) {
-                // 이미 가입된 회원이면 로그인 링크가 포함된 이메일 발송
-                sendLoginEmail(email, code)
-            } else {
-                // 가입된 회원이 아니면 회원 가입 링크가 포함된 이메일 전송
-                sendRegistrationEmail(email, code)
-            }
+        if (user != null) {
+            // 이미 가입된 회원이면 로그인 링크가 포함된 이메일 발송
+            sendLoginEmail(email, code)
+        } else {
+            // 가입된 회원이 아니면 회원 가입 링크가 포함된 이메일 전송
+            sendRegistrationEmail(email, code)
+        }
 
         // 영속화
         val newEntity = EmailVerificationEntity().apply {

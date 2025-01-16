@@ -1,5 +1,6 @@
 package io.vlog.user.domain
 
+import io.vlog.user.domain.enum.SocialType
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
@@ -39,6 +40,10 @@ class UserEntity {
     var userId: String = ""
 
     var intro: String? = null
+
+    var lastLoginAt: LocalDateTime? = null
+
+    var socialType: SocialType? = null
 
     @CreatedDate
     @Column(nullable = false)
