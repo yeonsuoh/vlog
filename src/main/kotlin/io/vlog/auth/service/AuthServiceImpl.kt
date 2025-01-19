@@ -15,8 +15,6 @@ class AuthServiceImpl(
     private val jwtTokenService: JwtTokenService,
     private val userRepository: UserRepository,
     private val userJpaRepository: UserJpaRepository,
-    private val emailVerificationJpaRepository: EmailVerificationJpaRepository,
-    private val emailVerificationRepository: EmailVerificationRepository,
 ) : AuthService {
 
     @Transactional
@@ -32,12 +30,7 @@ class AuthServiceImpl(
         val accessToken = jwtTokenService.createToken(uuid)
 
         // 로그인에 사용한 코드는 삭제
-        val emailVerification = emailVerificationRepository.getByCode(code)
-            ?: throw IllegalArgumentException("verification not found")
-
-        emailVerification.deletedAt = LocalDateTime.now()
-        emailVerificationJpaRepository.save(emailVerification)
-
+        emailVerificationService.delete(code)
 
         // token 반환
         return accessToken

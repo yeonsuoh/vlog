@@ -11,12 +11,11 @@ import org.springframework.web.bind.annotation.ResponseBody
 class AuthController(
     private val authService: AuthService,
 ) {
-
     @GetMapping("/email-login")
     @ResponseBody
     fun emailLogin(
         @RequestParam code: String,
-    ) : String {
+    ): String {
         val accessToken = authService.emailLogin(code)
 
         return accessToken

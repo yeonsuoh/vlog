@@ -45,6 +45,8 @@ class UserEntity {
 
     var socialType: SocialType? = null
 
+    var socialId: String? = null
+
     @CreatedDate
     @Column(nullable = false)
     var createdAt: LocalDateTime = LocalDateTime.now()

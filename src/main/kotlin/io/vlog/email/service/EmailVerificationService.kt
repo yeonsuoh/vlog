@@ -5,4 +5,5 @@ interface EmailVerificationService {
 
     fun getEmailByCode(code: String): String
 
+    fun delete(code: String)
 }

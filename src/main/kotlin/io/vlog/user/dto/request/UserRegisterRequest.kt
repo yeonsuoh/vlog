@@ -9,9 +9,10 @@ data class UserRegisterRequest (
     val email: String,
     @field:NotNull
     val userId: String,
-    val intro: String?,
-    @field:NotNull
-    val code: String,
+    val intro: String? = null,
+    val code: String? = null,
+    val socialType: String? = null,
+    val socialId: String? = null,
 ) {
     init {
         require(userId.matches(Regex("^[a-z0-9_-]{3,16}$"))) {

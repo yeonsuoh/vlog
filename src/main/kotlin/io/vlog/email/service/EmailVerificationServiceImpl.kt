@@ -15,8 +15,8 @@ import java.time.LocalDateTime
 @Service
 class EmailVerificationServiceImpl(
     private val emailTool: EmailTool,
-    private val emailVerificationRepository: EmailVerificationRepository,
     private val emailVerificationJpaRepository: EmailVerificationJpaRepository,
+    private val emailVerificationRepository: EmailVerificationRepository,
     private val emailProperties: EmailProperties,
     private val userRepository: UserRepository,
 ) : EmailVerificationService {
@@ -24,14 +24,13 @@ class EmailVerificationServiceImpl(
         // 인증 코드 생성
         val code = EmailUtil.generateCode(EmailConstant.CODE_LENGTH)
 
-        // 이미 가입된 회원이면 로그인 링크가 포함된 이메일 발송
         val user = userRepository.getByEmail(email)
 
         if (user != null) {
             // 이미 가입된 회원이면 로그인 링크가 포함된 이메일 발송
             sendLoginEmail(email, code)
         } else {
-            // 가입된 회원이 아니면 회원 가입 링크가 포함된 이메일 전송
+            // 가입된 회원이 아니면 회원가입 링크가 포함된 이메일 발송
             sendRegistrationEmail(email, code)
         }
 
@@ -56,6 +55,14 @@ class EmailVerificationServiceImpl(
         }
 
         return emailVerificationEntity.email
+    }
+
+    override fun delete(code: String) {
+        val emailVerification = emailVerificationRepository.getByCode(code)
+            ?: throw IllegalArgumentException("verification not found")
+
+        emailVerification.deletedAt = LocalDateTime.now()
+        emailVerificationJpaRepository.save(emailVerification)
     }
 
     private fun sendRegistrationEmail(
