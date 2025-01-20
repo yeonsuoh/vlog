@@ -1,9 +1,8 @@
 package io.vlog.auth.filter
 
 import io.vlog.auth.domain.constant.JwtConstant
-import io.vlog.auth.service.JwtTokenService
+import io.vlog.auth.domain.constant.JwtConstant.ACCESS_TOKEN_HEADER
 import io.vlog.auth.service.TokenService
-import io.vlog.user.repository.UserJpaRepository
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
@@ -21,13 +20,15 @@ class JwtAuthenticationFilter(
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-        val authHeader: String? = request.getHeader(JwtConstant.ACCESS_TOKEN_HEADER)
 
-        if (authHeader.doesNotContainBearerToken()) {
+        val authHeader: String? = request.getHeader(JwtConstant.ACCESS_TOKEN_HEADER)
+        val authCookie: String? = getAuthCookie(request)
+
+        if (authHeader.doesNotContainBearerToken() && authCookie == null) {
             filterChain.doFilter(request, response)
             return
         }
-        val jwtToken = authHeader!!.extractTokenValue()
+        val jwtToken = authCookie ?: authHeader!!.extractTokenValue()
 
         if (tokenService.isValid(jwtToken)) {
             val authToken = UsernamePasswordAuthenticationToken(tokenService.extractUserId(jwtToken), null, null)
@@ -42,6 +43,17 @@ class JwtAuthenticationFilter(
 
     private fun String.extractTokenValue(): String {
         return this.substringAfter(JwtConstant.ACCESS_TOKEN_PREFIX)
+    }
+
+    private fun getAuthCookie(request: HttpServletRequest) : String? {
+        val cookies = request.cookies
+        var accessToken: String? = null
+        for (cookie in cookies) {
+            if (cookie.name.equals(ACCESS_TOKEN_HEADER)) {
+                accessToken = cookie.value
+            }
+        }
+        return accessToken
     }
 
 }

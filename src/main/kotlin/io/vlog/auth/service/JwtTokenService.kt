@@ -15,7 +15,7 @@ class JwtTokenService(
     private val jwtProperties: JwtProperties,
     private val userJpaRepository: UserJpaRepository,
     ) : TokenService{
-    override fun createToken(uuid: String): String {
+    override fun createAccessToken(uuid: String): String {
         return Jwts.builder()
             .header()
             .add(JwtConstant.TYPE, JwtConstant.JWT)

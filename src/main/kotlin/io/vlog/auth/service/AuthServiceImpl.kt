@@ -1,7 +1,5 @@
 package io.vlog.auth.service
 
-import io.vlog.email.repository.EmailVerificationJpaRepository
-import io.vlog.email.repository.EmailVerificationRepository
 import io.vlog.email.service.EmailVerificationService
 import io.vlog.user.repository.UserJpaRepository
 import io.vlog.user.repository.UserRepository
@@ -27,7 +25,7 @@ class AuthServiceImpl(
         userJpaRepository.save(user)
 
         // token 생성
-        val accessToken = jwtTokenService.createToken(uuid)
+        val accessToken = jwtTokenService.createAccessToken(uuid)
 
         // 로그인에 사용한 코드는 삭제
         emailVerificationService.delete(code)

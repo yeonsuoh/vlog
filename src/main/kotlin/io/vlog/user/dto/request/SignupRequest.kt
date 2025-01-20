@@ -1,8 +1,10 @@
 package io.vlog.user.dto.request
 
+import io.vlog.common.enum.YnType
+import io.vlog.user.domain.enum.SocialType
 import org.jetbrains.annotations.NotNull
 
-data class UserRegisterRequest (
+data class SignupRequest(
     @field:NotNull
     val profileName: String,
     @field:NotNull
@@ -10,9 +12,9 @@ data class UserRegisterRequest (
     @field:NotNull
     val userId: String,
     val intro: String? = null,
-    val code: String? = null,
-    val socialType: String? = null,
-    val socialId: String? = null,
+    val code: String? = null, // 자체 회원가입
+    val socialType: SocialType? = null, // oAuth2 provider
+    val socialId: String? = null, // oAuth2 id
 ) {
     init {
         require(userId.matches(Regex("^[a-z0-9_-]{3,16}$"))) {

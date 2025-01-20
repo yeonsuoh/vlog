@@ -18,6 +18,6 @@ class MainController {
     @ResponseBody
     @GetMapping("/test")
     fun test() : String {
-        return "test"
+        return "return data for test"
     }
 }

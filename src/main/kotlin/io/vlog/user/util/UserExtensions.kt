@@ -1,13 +1,22 @@
 package io.vlog.user.util
 
-import io.vlog.user.dto.UserRegisterDto
-import io.vlog.user.dto.request.UserRegisterRequest
+import io.vlog.user.domain.UserEntity
+import io.vlog.user.dto.SignupRequestDto
+import io.vlog.user.dto.request.SignupRequest
 
-fun UserRegisterRequest.toDto(): UserRegisterDto {
-    return UserRegisterDto(
-        profileName = this.profileName,
-        email = this.email,
-        userId = this.userId,
-        intro = this.intro
+fun SignupRequest.toDto(): SignupRequestDto {
+    return SignupRequestDto(
+        profileName, email, userId, intro, code, socialType, socialId
     )
+}
+
+fun SignupRequestDto.toUserEntity(): UserEntity {
+    return UserEntity().apply {
+        this.profileName = this@toUserEntity.profileName
+        this.email = this@toUserEntity.email
+        this.userId = this@toUserEntity.userId
+        this.intro = this@toUserEntity.intro
+        this.socialType = this@toUserEntity.socialType
+        this.socialId = this@toUserEntity.socialId
+    }
 }

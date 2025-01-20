@@ -1,8 +1,11 @@
 package io.vlog.auth.handler
 
 import io.vlog.auth.domain.CustomOAuth2User
+import io.vlog.auth.domain.constant.JwtConstant.ACCESS_TOKEN_HEADER
+import io.vlog.auth.domain.constant.WebConstant
 import io.vlog.auth.service.TokenService
 import io.vlog.user.repository.UserRepository
+import jakarta.servlet.http.Cookie
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.security.core.Authentication
@@ -13,7 +16,7 @@ import org.springframework.stereotype.Component
 class CustomAuthenticationSuccessHandler(
     private val userRepository: UserRepository,
     private val tokenService: TokenService,
-) : AuthenticationSuccessHandler{
+) : AuthenticationSuccessHandler {
     override fun onAuthenticationSuccess(
         request: HttpServletRequest?,
         response: HttpServletResponse?,
@@ -27,15 +30,27 @@ class CustomAuthenticationSuccessHandler(
 
         if (userRepository.existsByEmail(email)) {
             val uuid = customOAuth2User.getUuid()?.let {
-                val token = tokenService.createToken(it)
-                response?.addHeader("Authorization", "Bearer $token")
-                response?.sendRedirect("/main")
+                val token = tokenService.createAccessToken(it)
+//                response?.addHeader("Authorization", "Bearer $token")
+                response?.addCookie(createCookie(ACCESS_TOKEN_HEADER, token))
+                response?.sendRedirect(WebConstant.CLIENT_SERVER) // 클라이언트 메인 페이지
             }
         } else {
-            // 회원가입 페이지로 리다이렉트
-            val redirectUrl = "/register/social?email=$email&name=$name&socialType=$socialType&socialId=$socialId"
+            // signup token에 사용자 정보를 담아 전달
+            val signupToken = tokenService.createSignupToken(email, name, socialType.toString(), socialId)
+            val redirectUrl = "${WebConstant.CLIENT_SERVER}/register/social?token=$signupToken"
+            response?.sendRedirect(redirectUrl)
         }
 
+    }
+
+    private fun createCookie(key: String, value: String): Cookie {
+        val cookie = Cookie(key, value)
+        cookie.maxAge = 60 * 60 * 60 // 60 시간
+        cookie.path = "/" // 모든 경로
+        cookie.isHttpOnly = true // http 요청을 통해서만 전송
+
+        return cookie
     }
 
 

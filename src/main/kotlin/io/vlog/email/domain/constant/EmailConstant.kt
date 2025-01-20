@@ -5,7 +5,7 @@ object EmailConstant {
     const val SERVER_URL = "http://localhost:8080" // todo profile separate
 
     // register
-    const val REGISTER_URI = "/register"
+    const val REGISTER_URI = "/v1/api/user/signup"
     const val REGISTER_PARAM = "?code="
     const val REGISTER_EMAIL_TITLE = "Vlog 회원가입"
 

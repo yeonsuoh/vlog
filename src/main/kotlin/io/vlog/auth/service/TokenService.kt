@@ -1,7 +1,14 @@
 package io.vlog.auth.service
 
 interface TokenService {
-    fun createToken(uuid: String): String
+    fun createAccessToken(uuid: String): String
+
+    fun createSignupToken(
+        email: String,
+        name: String,
+        socialType: String,
+        socialId: String,
+    )
 
     fun isValid(token: String): Boolean
 
