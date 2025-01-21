@@ -74,7 +74,9 @@ vlog:
   auth:
     permit-all-urls:
       - /main
-      - /email-verification
+      - /v1/api/email/verification # 자체 회원가입/로그인 이메일 발송
+      - /v1/api/user/signup/verify-email # 자체 회원가입 이메일 조회
+      - /v1/api/user/signup # 회원가입
       - /register
       - /email-login
       - /error

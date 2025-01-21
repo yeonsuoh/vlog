@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
 import io.vlog.auth.config.JwtProperties
 import io.vlog.auth.domain.constant.JwtConstant
+import io.vlog.email.config.EmailProperties
 import io.vlog.user.repository.UserJpaRepository
 import org.springframework.stereotype.Service
 import java.util.Date
@@ -13,8 +14,9 @@ import java.util.Date
 @Service
 class JwtTokenService(
     private val jwtProperties: JwtProperties,
+    private val emailProperties: EmailProperties,
     private val userJpaRepository: UserJpaRepository,
-    ) : TokenService{
+) : TokenService {
     override fun createAccessToken(uuid: String): String {
         return Jwts.builder()
             .header()
@@ -22,6 +24,25 @@ class JwtTokenService(
             .and()
             .claims()
             .add(mapOf(JwtConstant.USER_ID to uuid))
+            .issuedAt(Date(System.currentTimeMillis()))
+            .expiration(Date(System.currentTimeMillis() + emailProperties.authCodeExpirationMillis))
+            .issuer(JwtConstant.ISSUER)
+            .subject(JwtConstant.SIGNUP_TOKEN)
+            .and()
+            .signWith(secretKey)
+            .compact()
+    }
+
+    override fun createSignupToken(email: String, name: String, socialType: String, socialId: String): String {
+        return Jwts.builder()
+            .header()
+            .add(JwtConstant.TYPE, JwtConstant.JWT)
+            .and()
+            .claims()
+            .add(mapOf(JwtConstant.EMAIL to email))
+            .add(mapOf(JwtConstant.NAME to name))
+            .add(mapOf(JwtConstant.SOCIAL_TYPE to socialType))
+            .add(mapOf(JwtConstant.SOCIAL_ID to socialId))
             .issuedAt(Date(System.currentTimeMillis()))
             .expiration(Date(System.currentTimeMillis() + jwtProperties.accessExpiration!!))
             .issuer(JwtConstant.ISSUER)

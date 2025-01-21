@@ -2,7 +2,7 @@ package io.vlog.auth.handler
 
 import io.vlog.auth.domain.CustomOAuth2User
 import io.vlog.auth.domain.constant.JwtConstant.ACCESS_TOKEN_HEADER
-import io.vlog.auth.domain.constant.WebConstant
+import io.vlog.common.domain.constant.WebConstant
 import io.vlog.auth.service.TokenService
 import io.vlog.user.repository.UserRepository
 import jakarta.servlet.http.Cookie

@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/email-verification")
+@RequestMapping("/v1/api/email")
 class EmailVerificationRestController(
     private val emailVerificationService: EmailVerificationService,
 ) {
-    @PostMapping
+    @PostMapping("/verification")
     fun sendEmail(
         @RequestParam("email")
         email: String,

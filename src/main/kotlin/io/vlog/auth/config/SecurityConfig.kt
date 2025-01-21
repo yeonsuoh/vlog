@@ -1,27 +1,20 @@
 package io.vlog.auth.config
 
 import io.vlog.auth.domain.constant.JwtConstant.ACCESS_TOKEN_HEADER
-import io.vlog.auth.domain.constant.WebConstant.CLIENT_SERVER
-import io.vlog.auth.domain.constant.WebConstant.SET_COOKIE_HEADER
+import io.vlog.common.domain.constant.WebConstant.CLIENT_SERVER
+import io.vlog.common.domain.constant.WebConstant.SET_COOKIE_HEADER
 import io.vlog.auth.filter.JwtAuthenticationFilter
 import io.vlog.auth.handler.CustomAuthenticationSuccessHandler
 import io.vlog.auth.service.oauth2.CustomOAuth2UserService
-import jakarta.servlet.http.HttpServletRequest
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.security.authentication.AuthenticationManager
-import org.springframework.security.authentication.AuthenticationProvider
-import org.springframework.security.authentication.ProviderManager
-import org.springframework.security.config.Customizer
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.web.DefaultSecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import org.springframework.web.cors.CorsConfiguration
-import org.springframework.web.cors.CorsConfigurationSource
 import java.util.*
 
 @Configuration

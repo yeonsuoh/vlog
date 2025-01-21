@@ -46,7 +46,7 @@ class JwtAuthenticationFilter(
     }
 
     private fun getAuthCookie(request: HttpServletRequest) : String? {
-        val cookies = request.cookies
+        val cookies = request.cookies ?: return null // cookies가 null이면 바로 null을 반환
         var accessToken: String? = null
         for (cookie in cookies) {
             if (cookie.name.equals(ACCESS_TOKEN_HEADER)) {

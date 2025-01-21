@@ -8,7 +8,7 @@ interface TokenService {
         name: String,
         socialType: String,
         socialId: String,
-    )
+    ) : String
 
     fun isValid(token: String): Boolean
 
