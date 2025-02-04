@@ -1,8 +1,6 @@
 package io.vlog.user.service
 
 import io.vlog.email.service.EmailVerificationService
-import io.vlog.user.domain.UserEntity
-import io.vlog.user.domain.enum.SocialType
 import io.vlog.user.dto.SignupRequestDto
 import io.vlog.user.repository.UserJpaRepository
 import io.vlog.user.repository.UserRepository

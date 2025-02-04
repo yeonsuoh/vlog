@@ -2,7 +2,7 @@ package io.vlog.auth.domain
 
 import io.jsonwebtoken.lang.Collections
 import io.vlog.auth.dto.OAuth2Response
-import io.vlog.user.domain.UserEntity
+import io.vlog.user.domain.entity.UserEntity
 import io.vlog.user.domain.enum.SocialType
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.oauth2.core.user.OAuth2User

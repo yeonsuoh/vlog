@@ -10,13 +10,13 @@ import org.springframework.web.server.ResponseStatusException
 class MainController {
 
     @ResponseBody
-    @GetMapping("/main")
+    @GetMapping("/main") // 인증 없이 접근 가능
     fun main() : String {
         return "to do "
     }
 
     @ResponseBody
-    @GetMapping("/test")
+    @GetMapping("/test") // 인증 필요
     fun test() : String {
         return "return data for test"
     }

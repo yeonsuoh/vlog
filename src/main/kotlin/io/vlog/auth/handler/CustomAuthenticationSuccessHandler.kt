@@ -4,6 +4,7 @@ import io.vlog.auth.domain.CustomOAuth2User
 import io.vlog.auth.domain.constant.JwtConstant.ACCESS_TOKEN_HEADER
 import io.vlog.common.domain.constant.WebConstant
 import io.vlog.auth.service.TokenService
+import io.vlog.common.config.ClientProperties
 import io.vlog.user.repository.UserRepository
 import jakarta.servlet.http.Cookie
 import jakarta.servlet.http.HttpServletRequest
@@ -16,7 +17,8 @@ import org.springframework.stereotype.Component
 class CustomAuthenticationSuccessHandler(
     private val userRepository: UserRepository,
     private val tokenService: TokenService,
-) : AuthenticationSuccessHandler {
+    private val clientProperties: ClientProperties,
+    ) : AuthenticationSuccessHandler {
     override fun onAuthenticationSuccess(
         request: HttpServletRequest?,
         response: HttpServletResponse?,
@@ -33,12 +35,12 @@ class CustomAuthenticationSuccessHandler(
                 val token = tokenService.createAccessToken(it)
 //                response?.addHeader("Authorization", "Bearer $token")
                 response?.addCookie(createCookie(ACCESS_TOKEN_HEADER, token))
-                response?.sendRedirect(WebConstant.CLIENT_SERVER) // 클라이언트 메인 페이지
+                response?.sendRedirect(clientProperties.url) // 클라이언트 메인 페이지
             }
         } else {
             // signup token에 사용자 정보를 담아 전달
             val signupToken = tokenService.createSignupToken(email, name, socialType.toString(), socialId)
-            val redirectUrl = "${WebConstant.CLIENT_SERVER}/register/social?token=$signupToken"
+            val redirectUrl = "${clientProperties.url}/register/social?token=$signupToken"
             response?.sendRedirect(redirectUrl)
         }
 

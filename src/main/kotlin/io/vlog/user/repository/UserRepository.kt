@@ -1,6 +1,6 @@
 package io.vlog.user.repository
 
-import io.vlog.user.domain.UserEntity
+import io.vlog.user.domain.entity.UserEntity
 
 interface UserRepository {
     fun existsByEmail(email: String): Boolean

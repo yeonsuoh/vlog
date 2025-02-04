@@ -1,25 +1,32 @@
 package io.vlog.email.domain.constant
 
-import io.vlog.common.domain.constant.WebConstant.CLIENT_SERVER
+import io.vlog.common.config.ClientProperties
+import io.vlog.common.config.ServerProperties
+import org.springframework.stereotype.Component
 
-object EmailConstant {
-    const val CODE_LENGTH = 20
-    const val SERVER_URL = "http://localhost:8080" // todo profile separate
+
+@Component
+class EmailConstant(
+    private val clientProperties: ClientProperties,
+    private val serverProperties: ServerProperties,
+    ) {
+    val CODE_LENGTH = 20
+    val SERVER_URL = serverProperties.url
 
     // register
-    const val REGISTER_URI = "/signup"
-    const val REGISTER_PARAM = "?code="
-    const val REGISTER_EMAIL_TITLE = "Vlog 회원가입"
+    val REGISTER_URI = "/signup"
+    val REGISTER_PARAM = "?code="
+    val REGISTER_EMAIL_TITLE = "Vlog 회원가입"
 
     // login
-    const val LOGIN_URI = "/email-login"
-    const val LOGIN_PARAM = "?code="
-    const val LOGIN_EMAIL_TITLE = "Vlog 로그인"
+    val LOGIN_URI = "/email-login"
+    val LOGIN_PARAM = "?code="
+    val LOGIN_EMAIL_TITLE = "Vlog 로그인"
 
     fun getRegisterEmailContent(
         code: String
     ): String {
-        val url = "${CLIENT_SERVER}${REGISTER_URI}${REGISTER_PARAM}${code}"
+        val url = "${clientProperties}${REGISTER_URI}${REGISTER_PARAM}${code}"
 
         return """
 <html>

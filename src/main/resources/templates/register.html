@@ -1,120 +1,125 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>회원 가입</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f4f4f9;
-        }
+<!--2025.01.22 Rest API 방식으로 변환함에 따라 주석 처리-->
 
-        .container {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            width: 400px;
-            box-sizing: border-box;
-        }
 
-        h1 {
-            margin: 0 0 10px;
-            font-size: 24px;
-            color: #333;
-        }
 
-        p {
-            margin: 0 0 20px;
-            color: #666;
-        }
 
-        label {
-            display: block;
-            margin: 10px 0 5px;
-            font-weight: bold;
-        }
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>회원 가입</title>-->
+<!--    <style>-->
+<!--        body {-->
+<!--            font-family: Arial, sans-serif;-->
+<!--            line-height: 1.6;-->
+<!--            margin: 0;-->
+<!--            padding: 0;-->
+<!--            display: flex;-->
+<!--            justify-content: center;-->
+<!--            align-items: center;-->
+<!--            height: 100vh;-->
+<!--            background-color: #f4f4f9;-->
+<!--        }-->
 
-        input[type="text"], input[type="email"] {
-            width: 100%;
-            padding: 10px;
-            margin: 5px 0 20px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
+<!--        .container {-->
+<!--            background: #fff;-->
+<!--            padding: 20px;-->
+<!--            border-radius: 8px;-->
+<!--            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);-->
+<!--            width: 400px;-->
+<!--            box-sizing: border-box;-->
+<!--        }-->
 
-        .checkbox-container {
-            display: flex;
-            align-items: center;
-            margin: 20px 0;
-        }
+<!--        h1 {-->
+<!--            margin: 0 0 10px;-->
+<!--            font-size: 24px;-->
+<!--            color: #333;-->
+<!--        }-->
 
-        .checkbox-container input {
-            margin-right: 10px;
-        }
+<!--        p {-->
+<!--            margin: 0 0 20px;-->
+<!--            color: #666;-->
+<!--        }-->
 
-        .actions {
-            display: flex;
-            justify-content: space-between;
-        }
+<!--        label {-->
+<!--            display: block;-->
+<!--            margin: 10px 0 5px;-->
+<!--            font-weight: bold;-->
+<!--        }-->
 
-        button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
+<!--        input[type="text"], input[type="email"] {-->
+<!--            width: 100%;-->
+<!--            padding: 10px;-->
+<!--            margin: 5px 0 20px;-->
+<!--            border: 1px solid #ccc;-->
+<!--            border-radius: 4px;-->
+<!--            box-sizing: border-box;-->
+<!--        }-->
 
-        .btn-submit {
-            background-color: #007BFF;
-            color: #fff;
-        }
+<!--        .checkbox-container {-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            margin: 20px 0;-->
+<!--        }-->
 
-        .btn-cancel {
-            background-color: #ccc;
-            color: #333;
-        }
-    </style>
-</head>
-<body>
-<div class="container">
-    <h1>환영합니다!</h1>
-    <p>기본 회원 정보를 등록해 주세요.</p>
+<!--        .checkbox-container input {-->
+<!--            margin-right: 10px;-->
+<!--        }-->
 
-    <form th:action="${code != null ? '/v1/api/user/register'
-        : '/v1/api/user/register/social'}" method="post">
+<!--        .actions {-->
+<!--            display: flex;-->
+<!--            justify-content: space-between;-->
+<!--        }-->
 
-        <label for="profileName">프로필 이름</label>
-        <input type="text" id="profileName" name="profileName" placeholder="프로필 이름을 입력하세요."
-               th:value="${code != null ? '' : name}" required>
+<!--        button {-->
+<!--            padding: 10px 20px;-->
+<!--            border: none;-->
+<!--            border-radius: 4px;-->
+<!--            cursor: pointer;-->
+<!--            font-size: 16px;-->
+<!--        }-->
 
-        <label for="email">이메일</label>
-        <input type="email" id="email" name="email" th:value="${email}" readonly>
+<!--        .btn-submit {-->
+<!--            background-color: #007BFF;-->
+<!--            color: #fff;-->
+<!--        }-->
 
-        <label for="userId">사용자 ID</label>
-        <input type="text" id="userId" name="userId" placeholder="사용자 ID를 입력하세요." required>
+<!--        .btn-cancel {-->
+<!--            background-color: #ccc;-->
+<!--            color: #333;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container">-->
+<!--    <h1>환영합니다!</h1>-->
+<!--    <p>기본 회원 정보를 등록해 주세요.</p>-->
 
-        <label for="intro">한 줄 소개</label>
-        <input type="text" id="intro" name="intro" placeholder="당신을 한 줄로 소개해 보세요.">
+<!--    <form th:action="${code != null ? '/v1/api/user/register'-->
+<!--        : '/v1/api/user/register/social'}" method="post">-->
 
-        <input type="hidden" id="code" name="code" th:value="${code}">
-        <input type="hidden" id="socialType" socialType="code" th:value="${socialType}">
-        <input type="hidden" id="socialId" name="socialId" th:value="${socialId}">
+<!--        <label for="profileName">프로필 이름</label>-->
+<!--        <input type="text" id="profileName" name="profileName" placeholder="프로필 이름을 입력하세요."-->
+<!--               th:value="${code != null ? '' : name}" required>-->
 
-        <div class="actions">
-            <button type="submit" class="btn-submit">가입</button>
-            <button type="button" class="btn-cancel" onclick="window.location.href='/'">취소</button>
-        </div>
-    </form>
-</div>
-</body>
+<!--        <label for="email">이메일</label>-->
+<!--        <input type="email" id="email" name="email" th:value="${email}" readonly>-->
+
+<!--        <label for="userId">사용자 ID</label>-->
+<!--        <input type="text" id="userId" name="userId" placeholder="사용자 ID를 입력하세요." required>-->
+
+<!--        <label for="intro">한 줄 소개</label>-->
+<!--        <input type="text" id="intro" name="intro" placeholder="당신을 한 줄로 소개해 보세요.">-->
+
+<!--        <input type="hidden" id="code" name="code" th:value="${code}">-->
+<!--        <input type="hidden" id="socialType" socialType="code" th:value="${socialType}">-->
+<!--        <input type="hidden" id="socialId" name="socialId" th:value="${socialId}">-->
+
+<!--        <div class="actions">-->
+<!--            <button type="submit" class="btn-submit">가입</button>-->
+<!--            <button type="button" class="btn-cancel" onclick="window.location.href='/'">취소</button>-->
+<!--        </div>-->
+<!--    </form>-->
+<!--</div>-->
+<!--</body>-->

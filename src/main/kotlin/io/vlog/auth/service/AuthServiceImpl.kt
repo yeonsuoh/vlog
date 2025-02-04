@@ -3,6 +3,7 @@ package io.vlog.auth.service
 import io.vlog.email.service.EmailVerificationService
 import io.vlog.user.repository.UserJpaRepository
 import io.vlog.user.repository.UserRepository
+import jakarta.servlet.http.Cookie
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime

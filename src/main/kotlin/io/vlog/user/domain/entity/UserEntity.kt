@@ -1,4 +1,4 @@
-package io.vlog.user.domain
+package io.vlog.user.domain.entity
 
 import io.vlog.user.domain.enum.SocialType
 import jakarta.persistence.Column

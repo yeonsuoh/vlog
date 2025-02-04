@@ -7,6 +7,7 @@ import io.vlog.user.util.toDto
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
@@ -16,11 +17,15 @@ import org.springframework.web.bind.annotation.RestController
 class UserRestController(
     private val userService: UserService,
     private val emailVerificationService: EmailVerificationService,
-    ) {
+) {
 
     @PostMapping("/signup")
-    fun signup(request: SignupRequest) : ResponseEntity<Any> {
+    fun signup(
+        @RequestBody request: SignupRequest
+    ): ResponseEntity<Any> {
         val isSuccess = userService.signup(request.toDto())
+
+        // todo token 반환!!
 
         return ResponseEntity.ok(
             mapOf("isSuccess" to isSuccess)

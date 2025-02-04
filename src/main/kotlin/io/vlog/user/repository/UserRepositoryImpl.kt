@@ -1,9 +1,8 @@
 package io.vlog.user.repository
 
 import io.vlog.common.repository.BaseRepository
-import io.vlog.user.domain.QUserEntity
-import io.vlog.user.domain.QUserEntity.userEntity
-import io.vlog.user.domain.UserEntity
+import io.vlog.user.domain.entity.QUserEntity.userEntity
+import io.vlog.user.domain.entity.UserEntity
 import org.springframework.stereotype.Repository
 
 @Repository

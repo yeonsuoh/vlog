@@ -1,11 +1,11 @@
 package io.vlog.auth.config
 
 import io.vlog.auth.domain.constant.JwtConstant.ACCESS_TOKEN_HEADER
-import io.vlog.common.domain.constant.WebConstant.CLIENT_SERVER
 import io.vlog.common.domain.constant.WebConstant.SET_COOKIE_HEADER
 import io.vlog.auth.filter.JwtAuthenticationFilter
 import io.vlog.auth.handler.CustomAuthenticationSuccessHandler
 import io.vlog.auth.service.oauth2.CustomOAuth2UserService
+import io.vlog.common.config.ClientProperties
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -22,11 +22,12 @@ import java.util.*
 @EnableConfigurationProperties(
     value = [AuthPermitProperties::class]
 )
-class SecurityConfig(
+class AuthConfig(
     private val authPermitProperties: AuthPermitProperties,
     private val customOAuth2UserService: CustomOAuth2UserService,
     private val customAuthenticationSuccessHandler: CustomAuthenticationSuccessHandler,
-) {
+    private val clientProperties: ClientProperties,
+    ) {
     @Bean
     fun securityFilterChain(
         http: HttpSecurity,
@@ -54,7 +55,7 @@ class SecurityConfig(
             .cors {
                 it.configurationSource {
                     val configuration = CorsConfiguration()
-                    configuration.allowedOrigins = Collections.singletonList(CLIENT_SERVER) // 허용할 Origin
+                    configuration.allowedOrigins = Collections.singletonList(clientProperties.url) // 허용할 Origin
                     configuration.allowedMethods = Collections.singletonList("*") // 허용할 HTTP 메서드
                     configuration.allowedHeaders = Collections.singletonList("*")
                     configuration.allowCredentials = true // 쿠키 허용 여부

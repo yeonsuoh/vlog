@@ -1,12 +1,17 @@
 package io.vlog.user.util
 
-import io.vlog.user.domain.UserEntity
+import io.vlog.user.domain.entity.UserEntity
+import io.vlog.user.domain.enum.SocialType
 import io.vlog.user.dto.SignupRequestDto
 import io.vlog.user.dto.request.SignupRequest
 
 fun SignupRequest.toDto(): SignupRequestDto {
     return SignupRequestDto(
-        profileName, email, userId, intro, code, socialType, socialId
+        profileName, email, userId, intro, code, socialType?.let {
+            kotlin.runCatching {
+                SocialType.valueOf(it)
+            }.getOrNull()
+        }, socialId
     )
 }
 

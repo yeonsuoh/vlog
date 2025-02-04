@@ -3,13 +3,7 @@ spring:
     name: vlog
 
   profiles:
-    active: env
-
-  datasource:
-    url: jdbc:mysql://localhost:3306/vlog?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul&characterEncoding=utf-8
-    username: root
-    password: mysql
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    active: env, local
 
   jpa:
     show-sql: true
@@ -45,7 +39,6 @@ spring:
             client-name: naver
             client-id: ${naverId}
             client-secret: ${naverSecret}
-            redirect-uri: http://localhost:8080/login/oauth2/code/naver
             authorization-grant-type: authorization_code
             scope: name, email
 
@@ -81,3 +74,17 @@ vlog:
       - /email-login
       - /error
       - /favicon.ico
+      # swagger
+      - /swagger-ui/**
+      - /v1/swagger-config/**
+      - /v1
+
+
+
+
+springdoc:
+  api-docs:
+    path: /v1
+  swagger-ui:
+    path: /
+    disable-swagger-default-url: true

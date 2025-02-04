@@ -13,7 +13,7 @@ data class SignupRequest(
     val userId: String,
     val intro: String? = null,
     val code: String? = null, // 자체 회원가입
-    val socialType: SocialType? = null, // oAuth2 provider
+    val socialType: String? = null, // oAuth2 provider
     val socialId: String? = null, // oAuth2 id
 ) {
     init {

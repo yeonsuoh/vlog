@@ -1,0 +1,26 @@
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  datasource:
+    url:
+    username:
+    password:
+    driver-class-name:
+
+  security:
+    oauth2:
+      client:
+        registration:
+          naver:
+            redirect-uri:
+          google:
+            redirect-uri:
+
+vlog:
+  client:
+    url:
+
+  server:
+    url:

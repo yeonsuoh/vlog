@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController
 class EmailVerificationRestController(
     private val emailVerificationService: EmailVerificationService,
 ) {
+
     @PostMapping("/verification")
     fun sendEmail(
         @RequestParam("email")

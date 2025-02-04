@@ -19,10 +19,11 @@ class EmailVerificationServiceImpl(
     private val emailVerificationRepository: EmailVerificationRepository,
     private val emailProperties: EmailProperties,
     private val userRepository: UserRepository,
+    private val emailConstant: EmailConstant,
 ) : EmailVerificationService {
     override fun sendVerificationEmail(email: String): Boolean {
         // 인증 코드 생성
-        val code = EmailUtil.generateCode(EmailConstant.CODE_LENGTH)
+        val code = EmailUtil.generateCode(emailConstant.CODE_LENGTH)
 
         val user = userRepository.getByEmail(email)
 
@@ -71,8 +72,8 @@ class EmailVerificationServiceImpl(
     ) {
         emailTool.sendEmail(
             email,
-            EmailConstant.REGISTER_EMAIL_TITLE,
-            EmailConstant.getRegisterEmailContent(code)
+            emailConstant.REGISTER_EMAIL_TITLE,
+            emailConstant.getRegisterEmailContent(code)
         )
     }
 
@@ -82,8 +83,8 @@ class EmailVerificationServiceImpl(
     ) {
         emailTool.sendEmail(
             email,
-            EmailConstant.LOGIN_EMAIL_TITLE,
-            EmailConstant.getLoginEmailContent(code)
+            emailConstant.LOGIN_EMAIL_TITLE,
+            emailConstant.getLoginEmailContent(code)
         )
     }
 }
