@@ -1,0 +1,14 @@
+### signup
+POST {{serverUrl}}/v1/api/user/signup
+Content-Type: application/json
+
+{
+  "code": "SX7ibW9JaMOrnjEWRCNG",
+  "email":  "yeonsu@hmcnetworks.co.kr",
+  "intro": "sss",
+  "name": "",
+  "profileName": "연수",
+  "socialId": "",
+  "socialType": "",
+  "userId":  "112"
+}

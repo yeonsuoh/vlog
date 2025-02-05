@@ -55,14 +55,13 @@ class AuthConfig(
             .cors {
                 it.configurationSource {
                     val configuration = CorsConfiguration()
-                    configuration.allowedOrigins = Collections.singletonList(clientProperties.url) // 허용할 Origin
-                    configuration.allowedMethods = Collections.singletonList("*") // 허용할 HTTP 메서드
-                    configuration.allowedHeaders = Collections.singletonList("*")
+                    configuration.allowedOrigins = listOf(clientProperties.url) // 허용할 Origin
+                    configuration.allowedMethods = listOf("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH")
+                    configuration.allowedHeaders = listOf("*")
                     configuration.allowCredentials = true // 쿠키 허용 여부
                     configuration.maxAge = 3600L
 
-                    configuration.exposedHeaders = Collections.singletonList(SET_COOKIE_HEADER)
-                    configuration.exposedHeaders = Collections.singletonList(ACCESS_TOKEN_HEADER)
+                    configuration.exposedHeaders = listOf(SET_COOKIE_HEADER, ACCESS_TOKEN_HEADER)
 
                     configuration
                 }

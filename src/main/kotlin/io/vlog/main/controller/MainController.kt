@@ -1,6 +1,7 @@
 package io.vlog.main.controller
 
 import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ResponseBody
@@ -17,7 +18,9 @@ class MainController {
 
     @ResponseBody
     @GetMapping("/test") // 인증 필요
-    fun test() : String {
-        return "return data for test"
+    fun test() : ResponseEntity<Any> {
+        return ResponseEntity.ok(
+            mapOf("result" to "토큰 필요 요청 성공")
+        )
     }
 }

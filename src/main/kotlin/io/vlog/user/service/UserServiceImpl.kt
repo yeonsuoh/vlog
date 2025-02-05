@@ -1,5 +1,6 @@
 package io.vlog.user.service
 
+import io.vlog.auth.service.JwtTokenService
 import io.vlog.email.service.EmailVerificationService
 import io.vlog.user.dto.SignupRequestDto
 import io.vlog.user.repository.UserJpaRepository
@@ -13,19 +14,22 @@ class UserServiceImpl(
     private val userJpaRepository: UserJpaRepository,
     private val userRepository: UserRepository,
     private val emailVerificationService: EmailVerificationService,
-) : UserService {
+    private val jwtTokenService: JwtTokenService,
+    ) : UserService {
 
     @Transactional
-    override fun signup(dto: SignupRequestDto): Boolean {
+    override fun signup(dto: SignupRequestDto): String {
         // validate
         validateRegister(dto.email, dto.userId)
 
-        userJpaRepository.save(dto.toUserEntity())
+        val savedUser = userJpaRepository.save(dto.toUserEntity())
 
+        val accessToken = jwtTokenService.createAccessToken(savedUser.uuid)
         // 사용한 code는 삭제
         dto.code?.let { emailVerificationService.delete(it) }
 
-        return true
+        // token 반환
+        return accessToken
     }
 
     private fun validateRegister(

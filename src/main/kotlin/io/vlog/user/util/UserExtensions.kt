@@ -4,6 +4,7 @@ import io.vlog.user.domain.entity.UserEntity
 import io.vlog.user.domain.enum.SocialType
 import io.vlog.user.dto.SignupRequestDto
 import io.vlog.user.dto.request.SignupRequest
+import java.time.LocalDateTime
 
 fun SignupRequest.toDto(): SignupRequestDto {
     return SignupRequestDto(
@@ -23,5 +24,6 @@ fun SignupRequestDto.toUserEntity(): UserEntity {
         this.intro = this@toUserEntity.intro
         this.socialType = this@toUserEntity.socialType
         this.socialId = this@toUserEntity.socialId
+        this.lastLoginAt = LocalDateTime.now()
     }
 }

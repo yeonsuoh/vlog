@@ -26,7 +26,7 @@ class EmailConstant(
     fun getRegisterEmailContent(
         code: String
     ): String {
-        val url = "${clientProperties}${REGISTER_URI}${REGISTER_PARAM}${code}"
+        val url = "${clientProperties.url}${REGISTER_URI}${REGISTER_PARAM}${code}"
 
         return """
 <html>
@@ -61,6 +61,8 @@ class EmailConstant(
     fun getLoginEmailContent(
         code: String
     ): String {
+        val url = "${clientProperties.url}${LOGIN_URI}${LOGIN_PARAM}${code}"
+
         return """
 <html>
     <body style="font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0;">
@@ -71,12 +73,12 @@ class EmailConstant(
             <div style="font-size: 16px; color: #555555; line-height: 1.5; margin-bottom: 20px;">
                 만약 실수로 요청하셨거나, 본인이 요청하지 않았다면 이 메일을 무시하세요.
                 <br><br>
-                <a href="${SERVER_URL}${LOGIN_URI}${LOGIN_PARAM}${code}" style="display: inline-block; background-color: #007bff; color: #ffffff; padding: 12px 20px; font-size: 16px; text-decoration: none; border-radius: 5px; margin-top: 20px;">계속하기</a>
+                <a href="$url" style="display: inline-block; background-color: #007bff; color: #ffffff; padding: 12px 20px; font-size: 16px; text-decoration: none; border-radius: 5px; margin-top: 20px;">계속하기</a>
                 <br><br>
                 위 버튼을 클릭하시거나, 아래 링크를 열으세요:
                 <br>
-                <a href="${SERVER_URL}${LOGIN_URI}${LOGIN_PARAM}${code}" style="color: #007bff; text-decoration: none;">
-                    ${SERVER_URL}${LOGIN_URI}${LOGIN_PARAM}${code}
+                <a href="$url" style="color: #007bff; text-decoration: none;">
+                    $url
                 </a>
                 <br><br>
                 이 링크는 24시간 동안 유효합니다.

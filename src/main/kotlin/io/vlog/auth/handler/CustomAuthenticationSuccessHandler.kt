@@ -40,7 +40,10 @@ class CustomAuthenticationSuccessHandler(
         } else {
             // signup token에 사용자 정보를 담아 전달
             val signupToken = tokenService.createSignupToken(email, name, socialType.toString(), socialId)
-            val redirectUrl = "${clientProperties.url}/register/social?token=$signupToken"
+
+
+            // todo 소셜 로그인 후 회원가입하기.
+            val redirectUrl = "${clientProperties.url}/signup/social?token=$signupToken"
             response?.sendRedirect(redirectUrl)
         }
 
